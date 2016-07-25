@@ -1,0 +1,334 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+body {
+    background-color: #f1f8fe;
+    color: #1b2d2a;
+    font-family: 'Playfair Display', serif;
+}
+.header-bg {
+    background-color: #2e2d57;
+    height: 64px;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: -1;
+}
+.nav-bg {
+    background-color: #fff;
+    border-bottom: 1px solid #ccc;
+    height: 42px;
+    position: absolute;
+    top: 64px;
+    width: 100%;
+    z-index: -2;
+}
+header {
+    color: #ffc702;
+    display: block;
+    padding: 0.1em;
+    position: absolute;
+    top: 10px;
+}
+header a {
+    color: inherit;
+    text-decoration: none;
+}
+
+@media (max-width: 490px) {
+    h1 {
+        font-size: 21px;
+    }
+}
+nav {
+    display: block;
+    height: 42px;
+    overflow: hidden;
+}
+nav a {
+    border-bottom: 4px solid #fff;
+    display: inline-block;
+    line-height: 22px;
+    list-style: none;
+    padding: 8px 20px;
+    text-decoration: none;
+    transition: border 0.25s, background-color 0.25s;
+}
+nav a:hover {
+    background-color: #eee;
+    border-bottom: 4px solid #eee;
+}
+nav a.selected {
+    border-bottom: 4px solid #00af60;
+}
+.article-body {
+    display: flex;
+}
+.article-body .margin-1,
+.article-body .margin-2 {
+    display: none;
+}
+.article-body .content {
+    flex: 0 1 560px;
+    padding: 1em;
+    padding-top: 64px;
+}
+.article-body .sidebar {
+    display: none;
+    flex: 0 0 17%;
+    padding: 1em;
+    padding-top: 156px;
+}
+@media (min-width: 560px) {
+    .article-body .margin-2 {
+        display: block;
+        flex: 0.5 0 0px;
+    }
+    .article-body .content {
+        flex: 0 0 560px;
+    }
+}
+
+@media (min-width: 780px) {
+    .article-body .margin-1 {
+        display: block;
+        flex: 0.5 0 0px;
+    }
+    .article-body .content {
+        flex: 0.25 0 560px;
+    }
+    .article-body .sidebar {
+        display: block;
+        flex: 0 0 200px;
+    }
+}
+
+.social-icons {
+    position: absolute;
+    top: 20px;
+}
+.social-icons .icon {
+    border: 1px solid #ffc702;
+    border-radius: 8px;
+    color: #ffc702;
+    display: inline-block;
+    margin-left: 6px;
+    padding: 4px 10px;
+    transition: color 0.25s, border 0.25s, background-color 0.25s;
+}
+.social-icons .icon:hover {
+    background-color: #ffc702;
+    border: 1px solid #2e2d57;
+    color: #2e2d57;
+}
+
+article {
+    padding-bottom: 1.5em;
+    padding-top: 1.5em;
+}
+
+.list-heading {
+    background-color: #ddd;
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 22px;
+    font-weight: 700;
+    padding: 10px;
+    text-align: center;
+}
+
+.category {
+    color: #00af60;
+    font-family: 'Josefin Sans', sans-serif;
+    font-weight: 700;
+    margin: 1em 0;
+}
+h2 {
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 32px;
+    font-weight: 700;
+}
+h3 {
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 24px;
+    font-weight: 700;
+    padding-top: 14px;
+}
+.byline {
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 16px;
+    color: #2e2d57;
+    padding-top: 4px;
+    position: relative;
+}
+article li {
+    list-style: none;
+    margin-left: 1.5em;
+    padding: 0.5em;
+}
+article li:before {
+    content: "-";
+    display: inline-block;
+    margin-left: -18px;
+    width: 18px;
+}
+.social-icons-2 {
+    bottom: 0;
+    position: absolute;
+    right: 0;
+}
+.social-icons-2 .icon {
+    background-color: #fff;
+    border: 1px solid #2e2d57;
+    border-radius: 8px;
+    color: #2e2d57;
+    display: inline-block;
+    margin-left: 6px;
+    padding: 4px 10px;
+    transition: color 0.25s, border 0.25s, background-color 0.25s;
+}
+.social-icons-2 .icon:hover {
+    background-color: #2e2d57;
+    border: 1px solid #ffc702;
+    color: #ffc702;
+}
+p {
+    padding: 0.75em 0;
+}
+img {
+    padding-top: 0.75em;
+    padding-bottom: 0.75em;
+}
+.caption {
+    color: #666;
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 16px;
+    padding-bottom: 1em;
+}
+
+.sidebar-header {
+    background-color: #1b2d2a;
+    color: #fff;
+    font-family: 'Josefin Sans', sans-serif;
+    padding: 8px 20px;
+    text-align: center;
+}
+.sidebar-box {
+    border: 1px solid rgb(0, 0, 0);
+    cursor: pointer;
+    display: block;
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    margin-top: -1px;
+    padding: 14px;
+}
+.sidebar-box:hover {
+    background-color: #eee;
+    text-decoration: underline;
+}
+
+footer {
+    background-color: #000;
+    color: #ccc;
+    padding: 20px;
+}
+footer a,
+footer a:visited {
+    color: #ccc;
+    text-decoration: none;
+}
+footer ul {
+    text-align: center;
+}
+footer li {
+    display: inline-block;
+    list-style: none;
+    padding: 5px 15px;
+}
+
+#disclosure-banner {
+    background-color: #ffe074;
+    border-radius: 4px;
+    font-size: 14px;
+    height: auto;
+    margin-top: 10px;
+    max-height: 0;
+    overflow: hidden;
+    padding: 0px;
+    transition: max-height 1.0s;
+}
+#disclosure-banner span {
+    display: inline-block;
+    padding: 8px;
+}
+#disclosure-banner .buttons {
+    margin-bottom: 8px;
+}
+#disclosure-banner.visible {
+    max-height: 156px;
+}
+@media (max-width: 500px) {
+    #disclosure-banner {
+        font-size: 12px;
+    }
+}
+
+#disclosure-modal {
+    background-color: rgba(0, 0, 0, 0.6);
+    bottom: 0;
+    font-size: 14px;
+    left: 0;
+    opacity: 0;
+    pointer-events: none;
+    position: fixed;
+    right: 0;
+    top: 0;
+    transition: opacity 0.5s;
+}
+#disclosure-modal.visible {
+    opacity: 1;
+    pointer-events: all;
+}
+
+#disclosure-modal .dialog {
+    background-color: #ffe074;
+    border-radius: 4px;
+    box-shadow: 3px 3px 8px rgb(68, 68, 68);
+    height: 130px;
+    left: 50%;
+    padding: 10px;
+    position: absolute;
+    margin-left: -210px;
+    margin-top: -65px;
+    top: 50%;
+    width: 400px;
+}
+@media (max-width: 420px) {
+    #disclosure-modal .dialog {
+        font-size: 12px;
+        margin-left: -170px;
+        width: 320px;
+    }
+}
+
+#disclosure-banner .buttons,
+#disclosure-modal .dialog .buttons {
+    margin-top: 8px;
+    text-align: center;
+}
+#disclosure-banner button,
+#disclosure-modal .dialog button {
+    background-color: #2e2d57;
+    border: 1px solid #ffc702;
+    border-radius: 8px;
+    color: #ffc702;
+    padding: 4px 10px;
+    transition: color 0.25s, border 0.25s, background-color 0.25s;
+}
+#disclosure-banner button:hover,
+#disclosure-modal .dialog button:hover {
+    background-color: #ffc702;
+    border: 1px solid #2e2d57;
+    color: #2e2d57;
+}
