@@ -4,7 +4,6 @@
     <title>Berkeley Data Science Master's: An Inside View</title>
     <meta content="website" property="og:type">
     <meta content="Berkeley Data Science Master's: An Inside View" property="og:title">
-    <meta content="{{ resource }}" property="og:url">
     <meta content="Students of the UC Berkeley MIDS program share their experiences." property="og:description">
     <meta content="text/html" http-equiv="Content-Type">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -20,10 +19,10 @@
         <div class="margin-2"></div>
         <div class="content">
             <header>
-                <a href="homepage.html"><h1>Berkeley MIDS: An Inside View</h1></a>
+                <a href="/"><h1>Berkeley MIDS: An Inside View</h1></a>
             </header>
             <nav>
-                <a href="/index.html" {% if resource.meta.selected == "home" %}class="selected"{% endif %}>HOME</a>
+                <a href="/" {% if resource.meta.selected == "home" %}class="selected"{% endif %}>HOME</a>
                 <a href="/blog/index.html" {% if resource.meta.selected == "blog" %}class="selected"{% endif %}>BLOG</a>
                 <a href="/info/index.html" {% if resource.meta.selected == "info" %}class="selected"{% endif %}>INFO</a>
             </nav>
