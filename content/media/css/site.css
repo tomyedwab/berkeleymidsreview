@@ -148,6 +148,10 @@ h2 {
     font-size: 32px;
     font-weight: 700;
 }
+h2 a,
+h2 a:visited {
+    color: inherit;
+}
 h3 {
     font-family: 'Josefin Sans', sans-serif;
     font-size: 24px;
@@ -155,11 +159,16 @@ h3 {
     padding-top: 14px;
 }
 .byline {
+    align-items: center;
     font-family: 'Josefin Sans', sans-serif;
     font-size: 16px;
     color: #2e2d57;
+    display: flex;
     padding-top: 4px;
     position: relative;
+}
+.author {
+    flex: 1 0 0;
 }
 article li {
     list-style: none;
@@ -173,9 +182,7 @@ article li:before {
     width: 18px;
 }
 .social-icons-2 {
-    bottom: 0;
-    position: absolute;
-    right: 0;
+    flex: 0 0 110px;
 }
 .social-icons-2 .icon {
     background-color: #fff;

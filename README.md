@@ -7,8 +7,3 @@ To upload:
 
 gem install s3_website
 s3_website push
-
-TODO: favicon
-TODO: "Recent articles" disappears on mobile
-TODO: Social icons layout issue
-TODO: Social icons actually working

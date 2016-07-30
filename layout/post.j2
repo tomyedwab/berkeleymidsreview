@@ -1,12 +1,14 @@
 {% extends "page_template.j2" %}
 {% from "macros.j2" import social_buttons with context  %}
 
+{% block title %}{{resource.meta.title}} | Berkeley MIDS Review{% endblock %}
+
 {% block content %}
 <article>
     <div class="category">{{resource.meta.category}}</div>
     <h2>{{resource.meta.title}}</h2>
     <div class="byline">
-        {{resource.meta.date}}. {{resource.meta.author}}
+        <div class="author">{{resource.meta.date}}. {{resource.meta.author}}</div>
         {{ social_buttons() }}
     </div>
 
