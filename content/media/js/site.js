@@ -108,6 +108,19 @@ if (showBanner) {
     }
 }
 
+if (document.referrer.indexOf("berkeleymidsreview.site") < 0) {
+    sendEvent("referrer:" + document.referrer);
+}
+
+var queryParams = window.location.search.substring(1).split("&");
+for (var i = 0; i < queryParams.length; i++) {
+    sendEvent("q:" + queryParams[i]);
+}
+// Clear URI params
+if (window.history.replaceState) {
+    window.history.replaceState("", "", window.location.pathname);
+}
+
 function queueHeartbeat() {
     if (heartbeatIndex >= HEARTBEAT_INTERVALS.length - 1) {
         return;

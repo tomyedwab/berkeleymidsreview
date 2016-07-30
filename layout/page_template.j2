@@ -89,6 +89,6 @@
 </body>
 <script src="/media/js/site.js"></script>
 <script>
-sendEvent("page_view:{{ resource }}");
+sendEvent("page_view:{{resource.source.path|replace(site.content.path, "")|urlencode}}");
 </script>
 </html>
