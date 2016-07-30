@@ -112,6 +112,8 @@ if (document.referrer.indexOf("berkeleymidsreview.site") < 0) {
     sendEvent("referrer:" + document.referrer);
 }
 
+sendEvent("agent:" + navigator.userAgent);
+
 var queryParams = window.location.search.substring(1).split("&");
 for (var i = 0; i < queryParams.length; i++) {
     sendEvent("q:" + queryParams[i]);
