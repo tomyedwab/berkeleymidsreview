@@ -1,18 +1,36 @@
+"""Process results from user tracking.
+
+Dependencies:
+    pip install pyyaml ua-parser user-agents
+"""
 import csv
 from collections import defaultdict
 import datetime
 import math
 
+from user_agents import parse
+
 users = defaultdict(lambda: {})
 conversions = defaultdict(lambda: 0)
 
 columns = [
+    # User information
     "User ID",
     "Arrived",
+
+    # Covariates
+    "Browser",
+    "OS",
+    "Device",
+    "Mobile?",
+    "Source",
+
+    # Treatment
     "Show Disclosure",
     "Show Dialog",
+
+    # Outcomes
     "Dismissed?",
-    "Source",
     "Pages Viewed",
     "Max Page Time",
     "Total Page Time",
@@ -48,13 +66,12 @@ output_rows = []
 for user, events in users.iteritems():
     skip = False
     for event in events.values():
-        if event['Conversion'] == "q:secret=42":
-            #skip = True
+        if event['Conversion'] == "q:secret=42" or event['Conversion'] == "q:utm_medium=manually":
+            skip = True
             break
     if skip:
         continue
 
-    print "User %s:" % user
     times = sorted(events.keys())
 
     output_row = {
@@ -62,6 +79,10 @@ for user, events in users.iteritems():
         "Arrived": (datetime.datetime
             .fromtimestamp(float(times[0])/1000)
             .strftime('%Y-%m-%d %H:%M:%S')),
+        "Browser": "",
+        "OS": "",
+        "Device": "",
+        "Mobile?": False,
         "Show Disclosure": "",
         "Show Dialog": "",
         "Dismissed?": False,
@@ -109,6 +130,13 @@ for user, events in users.iteritems():
         if conversion == "scroll":
             output_row["Scrolled?"] = True
 
+        if conversion.startswith("agent:"):
+            user_agent = parse(conversion[6:])
+            output_row["Browser"] = user_agent.browser.family
+            output_row["OS"] = user_agent.os.family
+            output_row["Device"] = user_agent.device.family
+            output_row["Mobile?"] = user_agent.is_mobile
+
         conversions[conversion] += 1
 
     if output_row["Pages Viewed"] > 0:
@@ -118,13 +146,6 @@ for user, events in users.iteritems():
     output_row["Total Page Time"] = int(math.floor(output_row["Total Page Time"] / 1000))
     output_row["Max Page Time"] = int(math.floor(output_row["Max Page Time"] / 1000))
     output_row["Avg Page Time"] = int(math.floor(output_row["Avg Page Time"] / 1000))
-
-    print "\n"
-
-    for column in columns:
-        print "  %s = %s" % (column, output_row[column])
-
-    print "\n"
 
     output_rows.append(output_row)
 
