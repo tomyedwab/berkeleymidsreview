@@ -155,3 +155,7 @@ function onScroll() {
         detectedScroll = true;
     }
 }
+
+function onShare(medium) {
+    sendEvent("share:" + medium);
+}

@@ -136,6 +136,9 @@ article {
     padding: 10px;
     text-align: center;
 }
+.list-heading.other-articles {
+    margin: 80px 0px 20px;
+}
 
 .category {
     color: #00af60;
@@ -229,10 +232,16 @@ img {
     font-weight: 700;
     margin-top: -1px;
     padding: 14px;
+    text-decoration: none;
 }
 .sidebar-box:hover {
     background-color: #eee;
     text-decoration: underline;
+}
+.sidebar-box .by,
+.sidebar-box .by:hover,
+.sidebar-box .by:visited {
+    color: #000;
 }
 
 footer {

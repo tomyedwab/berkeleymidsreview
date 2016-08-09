@@ -1,30 +1,74 @@
 ---
-extends: page_template.j2
+extends: homepage.j2
 default_block: main
-selected: home
+selected: blog
+category: MIDS PROGRAM
+title: My Experience in MIDS
+date: July 24, 2016
+author: Yun-Hui Fan
 ---
 
-{% block content %}
-<article>
-    <h2>We are Berkeley students.</h2>
-    <img src="/media/images/immersion.jpg" width="100%">
+{% block post_content %}
+<p>Here is my story of what led me to my current adventure, and how the adventure has been for me so far. Who knows? You might find it
+    intriguing enough that you also want to jump in to start your adventure.</p>
 
-    <p>We are current students in the University of California&apos;s
-        <a href="https://datascience.berkeley.edu/">online Master of Information and Data Science program.</a>
-        We're sharing our experiences in this program with those who might be considering applying to this or similar online degree programs.</p>
+<p style="text-align: center">
+    <img src="/media/images/sql_mug.jpg" width="50%"><br />
+    <span class="caption">That was about the extent of my data knowledge before I started the MIDS program.<br />
+        You think you know more? Then you are in better shape than I was.</span>
+</p>
 
-    <p>Online degree programs are relatively new a mixed bag in terms of reputation. When we signed up we were definitely wondering:</p>
-    <ul>
-        <li>Will this program be too easy? Am I going to learn the skills I need to become productive in this industry?</li>
-        <li>Are online classes from a well-known university ultimately no better than what I could get from Udacity, Coursara, and the like?</li>
-        <li>Is it worth the price tag, especially compared with free or nearly free online courses?</li>
-    </ul>
+<p>About a year ago, my boss decided to let me take ownership of our company&apos;s Business Intelligence because he had become overwhelmed by
+    too many responsibilities as our company grew and I seemed to be our Engineering Team&apos;s only software engineer who doesn&apos;t have an
+    aversion to doing math.</p>
 
-    <p>These are questions we now feel prepared to answer. We can&apos;t promise we&apos;re not biased (we are deeply invested in this program after all!)
-        but we do have strong opinions on what works and what doesn't in the program, and what we are getting and hope to get out of it.
-        If you are considering this program or something like it I hope you will give some of these articles a read.</p>
+<p>Of course, I had no idea what Business Intelligence even means other than just some buzz words that one
+    hears a lot, so my duties at the beginning were basically just following my boss&apos; instructions. Occasionally, my boss would explain
+    the analysis results to me: Terms like &quot;p-value&quot;, &quot;confidence interval&quot;, &quot;chi-squared statistic&quot;,
+    &quot;regression&quot;, and &quot;Bayesian analysis&quot; were used all over the place.
+    They sounded vaguely familiar to me but were totally forgotten because it was a lifetime ago that I
+    learned probability and statistics. It was pretty embarrassing, to say the least, that I had no idea what my boss was talking about.</p>
 
-    <p>-Students of Berkeley MIDS</p>
+<p>I did not like the situation I was in. Not knowing what Business Intelligence is was not helpful for me to figure out what my role actually
+    entails. Not understanding what my calculation does was not helpful for me to do my job properly. In addition, I did not like being given
+    only piecemeal instructions, I wanted to see the big picture.</p>
 
-</article>
-{% endblock content %}
+<p>I decided to do something about the situation by looking up resources online.
+    There were plenty of free courses online, and many were even produced by top-tier universities. Free is good. Being able to watch the course
+    videos when I have time is good. I planned to check out the ones that sounded interesting. Nevertheless, something still felt lacking to me.
+    Each course by itself is like a single skill. How are those individual skills related to each other? How do they fit together to form knowledge?
+    It is still just piecemeal - it is not structured, cohesive learning.</p>
+
+<p>I stumbled upon some information about UC Berkeley&apos;s Master of Information and Data Science program one day. The curriculum had me do a double take.
+    The program provides an overview of Data Science, covering all major topics and aspects of Data Science including what I need to do my job and much more.
+    It starts with establishing the core knowledge and then expands into advanced topics. Essentially, it lays out very nicely what one will work toward,
+    why one wants it, and how one gets there. I was not looking into getting another graduate degree, but this program offered what I was looking for.
+    I did not have to figure out what to learn and how to proceed! Thusly, a chance encounter, a few inquiries, and an application later I became a
+    member of the cohort of spring 2016.</p>
+
+<p>The first semester was the trying time that I had not experienced in a very long time. Going back to school after having left school eons ago took some
+    getting used to. In addition, last time I was a student I did not have a job that I needed to juggle with school. This inconvenient little thing called
+    &quot;work&quot; had a tendency to get in the way of homework, class projects, and weekly required readings. Being a couch potato during weekends is a luxury
+    that I could not afford anymore, and while my employer allows us unlimited vacation time that we can take when we want to (within reason) the school does
+    not give that much freedom. Therefore, vacation time is something that I would not have much of for at least a year and a half.</p>
+
+<p>It sure doesn&apos;t sound fun, does it? It is now near the end of my second semester, and I have at least another year to go.
+    I am sleep deprived, I miss being able to take time off whenever. There are TV series that I am dying to catch up on but do not have time for.</p>
+
+<p>So after all this, you ask, how does it feel to be in this program? It is invigorating. It is eye-opening. It is challenging. It is learning. It is humbling.</p>
+
+<p>The students are from all over the world and have various backgrounds. It is fascinating to learn about what they do, why they are in this program,
+    and how they can apply what they learn from this program to their work. For example, some can apply what they learn to the video game industry so
+    they can produce games that are more engaging and attract more players. Some can apply what they learn to the automotive industry to add to
+    drivers&apos; convenience. Personally, I am glad that I can facilitate business decision making for executives at work. I think more critically
+    about the A/B tests that we conduct. Some of the buzz words actually mean something to me now. My work and my study have
+    started to complement each other. It is pretty neat.</p>
+
+<p>If you still remember your college days, you know there are different types of professors and some professors are more popular than others. It is the
+    same in this program. I have seen them go out of their way to make sure that the students understand and absorb the course material.
+    Their enthusiasm is infectious. Outside of class, students communicate with each other and help each other. When you have a question, you ask
+    and many other students will offer answers and advices. Don&apos;t feel overwhelmed, it is just camaraderie. It is one of the most valuable things
+    one gets out of this program.</p>
+
+<p>My adventure continues.</p>
+{% endblock post_content %}
