@@ -58,7 +58,7 @@ with open("output.csv", "r") as f:
             header = row
         else:
             values = {k: v for k, v in zip(header, row)}
-            if values["ExperimentName"] == "Test":
+            if values["ExperimentName"] == "FinalAug09":
                 users[values['UserId']][values['EventId']] = values
 
 output_rows = []
