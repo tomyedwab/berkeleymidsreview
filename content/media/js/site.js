@@ -1,4 +1,4 @@
-var EXPERIMENT_NAME = "Test";
+var EXPERIMENT_NAME = "FinalAug09";
 // In "debug" mode, don't actually read cookies or send events
 var DEBUG = true;
 var HEARTBEAT_INTERVALS = [
