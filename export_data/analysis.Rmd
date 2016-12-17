@@ -1,0 +1,164 @@
+---
+title: "Analysis"
+author: "Tom Yedwab"
+date: "August 18, 2016"
+output: pdf_document
+---
+
+# Read in data
+
+```{r}
+library(ggplot2)
+processed <- read.csv("~/source/berkeleymidsreview/export_data/processed.csv")
+```
+
+# Data cleanup
+
+```{r}
+# Parse some binaries so R recognizes them as such
+processed$MobileBin = processed$Mobile. == "True"
+processed$ScrolledBin = processed$Scrolled. == "True"
+processed$DismissedBin = processed$Dismissed. == "True"
+processed$DisclosureBin = processed$Show.Disclosure == "True"
+processed$DialogBin = processed$Show.Dialog == "True"
+
+# Pages viewed have to be at least 1, otherwise we wouldn't be recording data for the subject
+processed[processed$Pages.Viewed == 0, "Pages.Viewed"] = 1
+
+# Define a "bounce" as only viewing one page, no scrolling
+processed$Bounce = processed$Pages.Viewed < 2 & !processed$ScrolledBin
+```
+
+# Randomization check: These should be close to 0.5
+
+```{r}
+mean(processed$DisclosureBin)
+mean(processed$DialogBin)
+```
+
+# Look at the distributions of outcome variables in treatment/control
+
+Total Page Time:
+```{r}
+processedSubset = processed[processed$Total.Page.Time <= 600,]
+ggplot(processedSubset, aes(Total.Page.Time)) + geom_histogram() + facet_grid(DisclosureBin ~ .)
+ggplot(processedSubset, aes(log(Total.Page.Time))) + geom_histogram() + facet_grid(DisclosureBin ~ .)
+qqnorm(processedSubset$Total.Page.Time)
+```
+
+Pages Viewed:
+```{r}
+ggplot(processed, aes(Pages.Viewed)) + geom_histogram(binwidth=1) + facet_grid(DisclosureBin ~ .)
+ggplot(processed, aes(log(Pages.Viewed))) + geom_histogram(binwidth=1) + facet_grid(DisclosureBin ~ .)
+qqnorm(processedSubset$Pages.Viewed)
+```
+
+# Estimate some effects
+```{r}
+time.m = lm(Total.Page.Time ~ DisclosureBin + DialogBin + 
+              DisclosureBin * DialogBin + Source + MobileBin +
+              Age + Gender, data=processed)
+pages.m = lm(log(Pages.Viewed) ~ DisclosureBin + DialogBin + 
+               DisclosureBin * DialogBin + Source + MobileBin +
+               Age + Gender, data=processed)
+scrolled.m = glm(ScrolledBin ~ DisclosureBin + DialogBin +
+                   DisclosureBin * DialogBin + Source + MobileBin +
+                   Age + Gender, data=processed, family=binomial(link='logit'))
+dismissed.m =  glm(DismissedBin ~ DisclosureBin + DialogBin +
+                     DisclosureBin * DialogBin + Source + MobileBin +
+                     Age + Gender, data=processed, family=binomial(link='logit'))
+bounce.m =  glm(Bounce ~ DisclosureBin + DialogBin +
+                     DisclosureBin * DialogBin + Source + MobileBin +
+                     Age + Gender, data=processed, family=binomial(link='logit'))
+```
+
+```{r}
+summary(time.m)
+summary(pages.m)
+summary(scrolled.m)
+summary(dismissed.m)
+summary(bounce.m)
+```
+
+# Statistical power checks
+
+```{r}
+simulate.regression <- function(mean.control, sd, treatment.effect, n) {
+  tbl = data.frame(
+    group=c(rep(0, n/2), rep(1, n/2)),
+    val=c(rnorm(n/2, mean=mean.control, sd=sd),
+          rnorm(n/2, mean=mean.control+treatment.effect, sd=sd)))
+  model = lm(val ~ group, data=tbl)
+  p.value = summary(model)$coefficients[2,4]
+  return(p.value)
+}
+
+calculate.power <- function(mean.control, sd, treatment.effect, n) {
+  p.value.distribution = replicate(
+    10000,
+    simulate.regression(mean.control, sd, treatment.effect, n))
+  return(mean(p.value.distribution < 0.05))
+}
+```
+
+# What is our statistical power to detect a 10% increase/decrease in total page time?
+
+```{r}
+cov.model = lm(Total.Page.Time ~ Source + MobileBin + Age + Gender, data=processed)
+processed$Total.Page.Time.Prediction = predict(cov.model, processed)
+processed$Total.Page.Time.Resid = processed$Total.Page.Time.Prediction - processed$Total.Page.Time
+
+mean.value = mean(processed[processed$DisclosureBin==F,"Total.Page.Time"])
+mean.control = mean(processed[processed$DisclosureBin==F,"Total.Page.Time.Resid"])
+sd.control = sd(processed[processed$DisclosureBin==F,"Total.Page.Time.Resid"])
+treatment.effect = mean.value * -0.1
+time.power = calculate.power(mean.control, sd.control, treatment.effect,
+                             nrow(processed))
+print(time.power)
+```
+
+# What is our statistical power to detect a 10% increase/decrease in pages viewed?
+
+```{r}
+cov.model = lm(log(Pages.Viewed) ~ Source + MobileBin + Age + Gender, data=processed)
+processed$Pages.Viewed.Prediction = predict(cov.model, processed)
+processed$Pages.Viewed.Resid = processed$Pages.Viewed.Prediction - processed$Pages.Viewed
+
+mean.value = mean(log(processed[processed$DisclosureBin==F,"Pages.Viewed"]))
+mean.control = mean(processed[processed$DisclosureBin==F,"Pages.Viewed.Resid"])
+sd.control = sd(processed[processed$DisclosureBin==F,"Pages.Viewed.Resid"])
+# Increase of log(1.1) = 0.04
+treatment.effect = mean.value * 0.04
+pages.power = calculate.power(mean.control, sd.control, treatment.effect,
+                              nrow(processed))
+print(pages.power)
+```
+
+# What is our statistical power to detect a 10% increase/decrease in bounce rate?
+
+```{r}
+simulate.logistic.regression <- function(control.p, treatment.p, n) {
+  tbl = data.frame(
+    group=c(rep(0, n/2), rep(1, n/2)),
+    val=c(runif(n/2, 0, 1) <= control.p,
+          runif(n/2, 0, 1) <= treatment.p))
+  model = glm(val ~ group, data=tbl, family=binomial(link='logit'))
+  p.value = summary(model)$coefficients[2,4]
+  est = summary(model)$coefficients[2,1]
+  return(p.value)
+}
+
+calculate.logistic.power <- function(control.p, treatment.p, n) {
+  p.value.distribution = replicate(
+    10000,
+    simulate.logistic.regression(control.p, treatment.p, n))
+  return(mean(p.value.distribution < 0.05))
+}
+
+control.p = mean(processed[processed$DisclosureBin==F,"Bounce"])
+treatment.p = control.p * 1.10
+bounce.power = calculate.logistic.power(control.p, treatment.p, nrow(processed))
+print(bounce.power)
+```
+
+
